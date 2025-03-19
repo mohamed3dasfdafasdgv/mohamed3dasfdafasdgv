@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض الفيديو</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* لجعل الصفحة تأخذ ارتفاع الشاشة بالكامل */
+        }
+
+        video {
+            width: 95%; /* عرض الفيديو بنسبة 95% من الصفحة */
+            max-width: 1400px; /* أقصى عرض للفيديو */
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* ظل خفيف */
+        }
+    </style>
+</head>
+<body>
+
+    <video id="videoPlayer" controls autoplay>
+        <source id="videoSource" src="" type="video/mp4">
+        متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+
+    <script>
+        // الحصول على معلمة src من URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoSrc = urlParams.get('src');
+
+        // تعيين مصدر الفيديو
+        if (videoSrc) {
+            document.getElementById('videoSource').src = videoSrc;
+            document.getElementById('videoPlayer').load();
+        } else {
+            alert("لم يتم تحديد فيديو.");
+        }
+    </script>
+
+</body>
+</html>

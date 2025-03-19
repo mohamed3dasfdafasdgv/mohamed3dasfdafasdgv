@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TR HaMo Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* إزالة الهوامش والحشوات من العناصر الأساسية */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            text-align: right;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* تنسيق شريط التنقل */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* ألوان المستطيلات */
+        .home {
+            background-color: #ff9a00;
+        }
+
+        .freefire {
+            background-color: #00cfff;
+        }
+
+        .pubg {
+            background-color: #ff4f81;
+        }
+
+        section {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            display: none;
+            padding: 0;
+            height: auto;
+            margin: 0;
+        }
+
+        #home {
+            background: linear-gradient(to right, #ff9a00, #feb47b);
+            opacity: 1;
+            display: block;
+            height: auto;
+            padding: 0;
+            margin: 0;
+        }
+
+        #freefire {
+            background: linear-gradient(to right, #00cfff, #00f2fe);
+            padding-bottom: 50px;
+        }
+
+        #pubg {
+            background: linear-gradient(to right, #ff4f81, #ee0979);
+            padding-bottom: 50px;
+        }
+
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .home-image {
+            width: 200px;
+            margin-top: -10px;
+            margin-left: -40px;
+        }
+
+        .accounts-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .account {
+            position: relative;
+            padding: 15px;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+            font-size: 14px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 100px;
+        }
+
+        /* ألوان خلفية أكثر إشراقًا لكل حساب في Free Fire */
+        #freefire .account:nth-child(1) {
+            background-color: #ff9f40; /* لون برتقالي فاتح */
+        }
+        #freefire .account:nth-child(2) {
+            background-color: #ff6f61; /* لون مرجاني فاتح */
+        }
+        #freefire .account:nth-child(3) {
+            background-color: #ffcc29; /* لون أصفر فاتح */
+        }
+        #freefire .account:nth-child(4) {
+            background-color: #4cd964; /* لون أخضر فاتح */
+        }
+        #freefire .account:nth-child(5) {
+            background-color: #5ac8fa; /* لون أزرق فاتح */
+        }
+        #freefire .account:nth-child(6) {
+            background-color: #ff2d55; /* لون أحمر فاتح */
+        }
+        #freefire .account:nth-child(7) {
+            background-color: #c644fc; /* لون بنفسجي فاتح */
+        }
+        #freefire .account:nth-child(8) {
+            background-color: #ff9500; /* لون برتقالي فاتح */
+        }
+        #freefire .account:nth-child(9) {
+            background-color: #f0f0f0; /* لون أبيض فاتح */
+        }
+        #freefire .account:nth-child(10) {
+            background-color: #333333; /* لون أسود */
+        }
+        #freefire .account:nth-child(11) {
+            background-color: #87ceeb; /* لون أزرق فاتح */
+        }
+
+        /* ألوان خلفية أكثر إشراقًا لكل حساب في PUBG */
+        #pubg .account:nth-child(1) {
+            background-color: #ff6f61; /* لون مرجاني فاتح */
+        }
+        #pubg .account:nth-child(2) {
+            background-color: #ffcc29; /* لون أصفر فاتح */
+        }
+        #pubg .account:nth-child(3) {
+            background-color: #4cd964; /* لون أخضر فاتح */
+        }
+        #pubg .account:nth-child(4) {
+            background-color: #5ac8fa; /* لون أزرق فاتح */
+        }
+        #pubg .account:nth-child(5) {
+            background-color: #ff2d55; /* لون أحمر فاتح */
+        }
+        #pubg .account:nth-child(6) {
+            background-color: #c644fc; /* لون بنفسجي فاتح */
+        }
+        #pubg .account:nth-child(7) {
+            background-color: #ff9500; /* لون برتقالي فاتح */
+        }
+        #pubg .account:nth-child(8) {
+            background-color: #ff9f40; /* لون برتقالي فاتح */
+        }
+        #pubg .account:nth-child(9) {
+            background-color: #f0f0f0; /* لون أبيض فاتح */
+        }
+        #pubg .account:nth-child(10) {
+            background-color: #333333; /* لون أسود */
+        }
+        #pubg .account:nth-child(11) {
+            background-color: #87ceeb; /* لون أزرق فاتح */
+        }
+
+        .account:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ffcc00;
+            transform: scale(1.1);
+        }
+
+        .btn.account-btn {
+            background: yellow;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn.whatsapp-btn {
+            background: green;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: black;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 12px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: yellow;
+            width: 0%;
+            z-index: 1000;
+        }
+
+        details {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+
+        .show-more {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .show-more-btn {
+            background-color: #ffcc00;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .show-more-btn:hover {
+            background-color: #ff9900;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .accounts-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .account {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progressBar" class="progress-bar"></div>
+
+    <nav class="navbar">
+        <div class="nav-item home" onclick="showHome()">Home</div>
+        <div class="nav-item freefire" onclick="showFreeFire()">Free Fire</div>
+        <div class="nav-item pubg" onclick="showPubg()">PUBG MOBILE</div>
+    </nav>
+
+    <section id="home" class="fade-in">
+        <div class="home-container">
+            <img src="Home.png" alt="صورة ترحيبية لمتجر TR HaMo Store" class="home-image" loading="lazy">
+        </div>
+        <div style="text-align: center; padding: 20px; background-color: rgba(0, 0, 0, 0.5); margin: 0;">
+            <p>اهلا بكم معكم TR HaMo</p>
+            <p>يوجد بيع وشراء جميع الحسابات: Free Fire, PUBG Mobile</p>
+            <br>
+            <p><strong>قوانين ‼️</strong></p>
+            <ol style="text-align: right; margin-right: 20px;">
+                <li>شوف أي حساب يعجبك، اضغط على زر "تواصل على واتساب". بعد ما يدخلك تواصل معي واكتب سعر الحساب.</li>
+                <li>لو عايز تبيع حساب، تواصل معي وسوف أعرضه في الموقع.</li>
+                <li>لو خايف حسابك يتسرق، يتوفر خدمة تأمين شامل وحماية حساب ضد الاختراق. تواصل معي.</li>
+                <li>يتم تنزيل حسابات جديدة يوميًا في الموقع.</li>
+            </ol>
+            <br>
+            <p>شكرا جزيلا، تواصل معنا:</p>
+            <p><a href="https://wa.me/201070723408" target="_blank" style="color: yellow;">+201070723408</a></p>
+        </div>
+    </section>
+
+    <section id="freefire" class="accounts-container fade-in">
+        <!-- الحسابات الأساسية -->
+        <div class="account" data-price="400">
+            <img src="FreeFire1_thumbnail.jpg" alt="حساب Free Fire للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 400ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 50</p>
+                <p>الأسلحة النادرة: 10</p>
+                <p>السمات: VIP</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire1.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account" data-price="600">
+            <img src="FreeFire2_thumbnail.jpg" alt="حساب Free Fire آخر للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 600ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 70</p>
+                <p>الأسلحة النادرة: 15</p>
+                <p>السمات: VIP Pro</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire2.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- حسابات إضافية -->
+        <div class="account hidden" data-price="500">
+            <img src="FreeFire3_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 500ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 60</p>
+                <p>الأسلحة النادرة: 12</p>
+                <p>السمات: VIP</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire3.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="700">
+            <img src="FreeFire4_thumbnail.jpg" alt="حساب Free Fire إضافي آخر للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 700ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 80</p>
+                <p>الأسلحة النادرة: 20</p>
+                <p>السمات: VIP Pro</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire4.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="450">
+            <img src="FreeFire5_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 450ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 55</p>
+                <p>الأسلحة النادرة: 11</p>
+                <p>السمات: VIP</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire5.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="650">
+            <img src="FreeFire6_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 650ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 75</p>
+                <p>الأسلحة النادرة: 18</p>
+                <p>السمات: VIP Pro</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire6.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="550">
+            <img src="FreeFire7_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 550ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 65</p>
+                <p>الأسلحة النادرة: 14</p>
+                <p>السمات: VIP</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire7.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="750">
+            <img src="FreeFire8_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 750ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 85</p>
+                <p>الأسلحة النادرة: 22</p>
+                <p>السمات: VIP Pro</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire8.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- حسابات إضافية جديدة -->
+        <div class="account hidden" data-price="800">
+            <img src="FreeFire9_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 800ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 90</p>
+                <p>الأسلحة النادرة: 25</p>
+                <p>السمات: VIP Pro</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire9.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="850">
+            <img src="FreeFire10_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 850ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 95</p>
+                <p>الأسلحة النادرة: 28</p>
+                <p>السمات: VIP Pro</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire10.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="900">
+            <img src="FreeFire11_thumbnail.jpg" alt="حساب Free Fire إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 900ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 100</p>
+                <p>الأسلحة النادرة: 30</p>
+                <p>السمات: VIP Pro</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=FreeFire11.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- زر عرض المزيد -->
+        <div class="show-more">
+            <button class="show-more-btn" onclick="showMoreAccounts('freefire')">عرض المزيد</button>
+        </div>
+    </section>
+
+    <section id="pubg" class="accounts-container fade-in">
+        <!-- الحسابات الأساسية -->
+        <div class="account" data-price="500">
+            <img src="Pubg1_thumbnail.jpg" alt="حساب PUBG للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 500ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 60</p>
+                <p>الأسلحة النادرة: 12</p>
+                <p>السمات: Elite</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg1.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account" data-price="700">
+            <img src="Pubg2_thumbnail.jpg" alt="حساب PUBG آخر للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 700ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 80</p>
+                <p>الأسلحة النادرة: 20</p>
+                <p>السمات: Legendary</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg2.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- حسابات إضافية -->
+        <div class="account hidden" data-price="600">
+            <img src="Pubg3_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 600ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 70</p>
+                <p>الأسلحة النادرة: 15</p>
+                <p>السمات: Elite</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg3.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="800">
+            <img src="Pubg4_thumbnail.jpg" alt="حساب PUBG إضافي آخر للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 800ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 90</p>
+                <p>الأسلحة النادرة: 25</p>
+                <p>السمات: Legendary</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg4.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="550">
+            <img src="Pubg5_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 550ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 65</p>
+                <p>الأسلحة النادرة: 14</p>
+                <p>السمات: Elite</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg5.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="750">
+            <img src="Pubg6_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 750ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 85</p>
+                <p>الأسلحة النادرة: 22</p>
+                <p>السمات: Legendary</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg6.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="650">
+            <img src="Pubg7_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 650ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 75</p>
+                <p>الأسلحة النادرة: 18</p>
+                <p>السمات: Elite</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg7.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="850">
+            <img src="Pubg8_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 850ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 95</p>
+                <p>الأسلحة النادرة: 28</p>
+                <p>السمات: Legendary</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg8.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- حسابات إضافية جديدة -->
+        <div class="account hidden" data-price="900">
+            <img src="Pubg9_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 900ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 100</p>
+                <p>الأسلحة النادرة: 30</p>
+                <p>السمات: Legendary</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg9.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="950">
+            <img src="Pubg10_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 950ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 105</p>
+                <p>الأسلحة النادرة: 35</p>
+                <p>السمات: Legendary</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg10.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="account hidden" data-price="1000">
+            <img src="Pubg11_thumbnail.jpg" alt="حساب PUBG إضافي للبيع" class="thumbnail" loading="lazy">
+            <p class="price">السعر: 1000ج</p>
+            <details>
+                <summary>تفاصيل الحساب</summary>
+                <p>المستوى: 110</p>
+                <p>الأسلحة النادرة: 40</p>
+                <p>السمات: Legendary</p>
+            </details>
+            <div class="buttons">
+                <a href="https://wa.me/201070723408" target="_blank" rel="noopener noreferrer">
+                    <button class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اتصل الآن
+                    </button>
+                </a>
+                <a href="video.html?src=Pubg11.mp4" target="_blank">
+                    <button class="btn account-btn">عرض الحساب</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- زر عرض المزيد -->
+        <div class="show-more">
+            <button class="show-more-btn" onclick="showMoreAccounts('pubg')">عرض المزيد</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© TR HaMo Store 2025</p>
+    </footer>
+
+    <script>
+        // إخفاء جميع الأقسام عند التحميل
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll("section").forEach(section => {
+                section.style.display = "none";
+            });
+
+            // عرض القسم الرئيسي فقط
+            document.getElementById("home").style.display = "block";
+        });
+
+        function showSection(sectionId) {
+            // إخفاء جميع الأقسام
+            document.querySelectorAll("section").forEach(section => {
+                section.style.display = "none";
+                section.style.opacity = "0";
+            });
+
+            // عرض القسم المحدد
+            let activeSection = document.getElementById(sectionId);
+            activeSection.style.display = "flex";
+            setTimeout(() => {
+                activeSection.style.opacity = "1";
+            }, 100);
+        }
+
+        function showHome() { showSection("home"); }
+        function showFreeFire() { showSection("freefire"); }
+        function showPubg() { showSection("pubg"); }
+
+        // شريط التقدم
+        window.onscroll = function() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // عرض المزيد من الحسابات
+        function showMoreAccounts(sectionId) {
+            const hiddenAccounts = document.querySelectorAll(`#${sectionId} .account.hidden`);
+            hiddenAccounts.forEach(account => {
+                account.classList.remove("hidden");
+            });
+
+            // إخفاء زر "عرض المزيد" بعد عرض جميع الحسابات
+            document.querySelector(`#${sectionId} .show-more`).style.display = "none";
+        }
+    </script>
+</body>
+</html>
